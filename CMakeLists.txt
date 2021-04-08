@@ -1,19 +1,21 @@
 cmake_minimum_required(VERSION 3.16)
 project(GrapheneChat-Server)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+
 file (GLOB SOURCE_FILES src/*.cpp)
 file (GLOB HEADER_FILES src/*.h)
 
 set (TARGET_NAME Server)
 
+link_libraries(sqlite3)
+
 find_package(Threads REQUIRED)
-
-include_directories (websocketpp)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
-
+find_package (SQLite3 REQUIRED)
+find_package(RapidJSON REQUIRED)
 FIND_PACKAGE( Boost 1.40 COMPONENTS system REQUIRED )
-INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
+
+include_directories (websocketpp ${Boost_INCLUDE_DIR} ${SQLite3_INCLUDE_DIR} ${RapidJSON_INCLUDE_DIRS})
 
 add_executable (${TARGET_NAME} ${SOURCE_FILES} ${HEADER_FILES})
 
