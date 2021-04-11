@@ -21,7 +21,7 @@ void DBManager::addMessage(rapidjson::Value& object) {
 	char *zErrMsg = 0;
 	char sql[4096];
 
-	sprintf(sql, "INSERT INTO MESSAGES (ID, CHANNEL_ID, AUTHOR_ID, MSG) VALUES (%u, %u, %u, \'%s\');", object["id"].GetUint64(), object["channel"].GetUint64(), object["author"].GetUint64(), object["msg"].GetString());
+	sprintf(sql, "INSERT INTO MESSAGES (ID, CHANNEL_ID, AUTHOR_ID, MSG) VALUES (%lu, %lu, %lu, \'%s\');", object["id"].GetUint64(), object["channel"].GetUint64(), object["author"].GetUint64(), object["msg"].GetString());
 
 	int rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
 
