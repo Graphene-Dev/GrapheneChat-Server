@@ -19,7 +19,7 @@ find_package(RapidJSON REQUIRED)
 FIND_PACKAGE( Boost 1.40 COMPONENTS system REQUIRED )
 endif(UNIX)
 
-elseif(APPLE)
+if(APPLE)
 link_libraries(sqlite3)
 
 find_package(Threads REQUIRED)
