@@ -2,6 +2,8 @@
 ## Building
 * Linux/Mac
 ```
+git submodule init
+git submodule update
 sudo apt-get install aptitude -y
 sudo aptitude install -y build-essential git libboost-all-dev cmake rapidjson-dev sqlite3
 mkdir build
