@@ -30,3 +30,7 @@ void DBManager::addMessage(rapidjson::Value& object) {
     sqlite3_free(zErrMsg);
 	}
 }
+
+rapidjson::Document last50(uint64_t latestID) {
+
+}
