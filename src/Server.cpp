@@ -11,8 +11,8 @@ using websocketpp::lib::placeholders::_1;
 using websocketpp::lib::placeholders::_2;
 using websocketpp::lib::bind;
 
-Server::Server() {
-
+Server::Server(DBManager* db) {
+	this->db = db;
 }
 
 void Server::set_db_callback(void (*db_callback) (int type, rapidjson::Value& object)) {
@@ -41,6 +41,8 @@ void Server::on_message(websocketpp::connection_hdl hdl, websocketpp::server<web
 	if (document["type"] == "NEW_MESSAGE") {
 		db_callback(1, document["data"]);
 		sendAll(msg->get_payload());
+	}else if (document["type"] == "LAST_50") {
+
 	}
 }
 

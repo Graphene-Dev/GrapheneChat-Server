@@ -13,6 +13,8 @@ public:
 	DBManager();
 
 	void addMessage(rapidjson::Value& object);
+
+	rapidjson::Document last50(uint64_t latestID);
 };
 
 #endif // DBMANAGER_H

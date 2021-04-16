@@ -15,8 +15,8 @@ void db_cb(int type, rapidjson::Value& object) {
 }
 
 int main(int argc, char const *argv[]) {
-  Server* s = new Server();
   db = new DBManager();
+  Server* s = new Server(db);
   s->set_db_callback(db_cb);
   std::thread server_thread(&Server::run, std::ref(s));
 
