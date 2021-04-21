@@ -1,5 +1,7 @@
-# Usage
-## Building
+[![CodeFactor](https://www.codefactor.io/repository/github/graphene-dev/graphenechat-server/badge)](https://www.codefactor.io/repository/github/graphene-dev/graphenechat-server)
+# Graphene Chat Server
+## Usage
+### Building
 * Linux
 ```
 git submodule init
@@ -27,6 +29,6 @@ cmake ..
 make
 ```
 
-## Running
+### Running
 copy ```base.db``` into build folder and rename ```default.db```
 then run ```./Server```
