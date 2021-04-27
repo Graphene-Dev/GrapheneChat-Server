@@ -4,19 +4,30 @@
 #include <thread>
 #include <functional>
 
-DBManager* db;
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
 
-void db_cb(int type, rapidjson::Value& object) {
+DBManager* db;
+Server* s;
+
+void db_cb(int type, rapidjson::Value& object, websocketpp::connection_hdl hdl) {
   switch (type) {
     case 1:
       db->addMessage(object);
+      break;
+    case 2:
+      rapidjson::Document out = db->last50(0);
+      rapidjson::StringBuffer buffer;
+      rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+      out.Accept(writer);
+      s->server.send(hdl, buffer.GetString(), websocketpp::frame::opcode::text);
       break;
   }
 }
 
 int main(int argc, char const *argv[]) {
   db = new DBManager();
-  Server* s = new Server(db);
+  s = new Server(db);
   s->set_db_callback(db_cb);
   std::thread server_thread(&Server::run, std::ref(s));
 

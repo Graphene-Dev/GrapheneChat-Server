@@ -15,7 +15,7 @@ Server::Server(DBManager* db) {
 	this->db = db;
 }
 
-void Server::set_db_callback(void (*db_callback) (int type, rapidjson::Value& object)) {
+void Server::set_db_callback(void (*db_callback) (int type, rapidjson::Value& object, websocketpp::connection_hdl hdl)) {
 	this->db_callback = db_callback;
 }
 
@@ -39,10 +39,10 @@ void Server::on_message(websocketpp::connection_hdl hdl, websocketpp::server<web
 	rapidjson::Document document;
 	document.Parse(msg->get_payload().c_str());
 	if (document["type"] == "NEW_MESSAGE") {
-		db_callback(1, document["data"]);
+		db_callback(1, document["data"], hdl);
 		sendAll(msg->get_payload());
 	}else if (document["type"] == "LAST_50") {
-
+		db_callback(2, document["data"], hdl);
 	}
 }
 

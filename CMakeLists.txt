@@ -18,7 +18,7 @@ find_package (SQLite3 REQUIRED)
 find_library(SQLITE3_LIBRARY NAMES sqlite3)
 if(SQLITE3_FOUND)
 include_directories(${SQLite3_INCLUDE_DIR})
-target_link_libraries(${TARGET_NAME}${SQLITE3_LIBRARIES})
+
 endif(SQLITE3_FOUND)
 find_package(RapidJSON REQUIRED)
 FIND_PACKAGE( Boost 1.40 COMPONENTS system REQUIRED )
@@ -38,3 +38,6 @@ include_directories (websocketpp ${Boost_INCLUDE_DIR} ${SQLite3_INCLUDE_DIR} ${R
 add_executable (${TARGET_NAME} ${SOURCE_FILES} ${HEADER_FILES})
 
 target_link_libraries(${TARGET_NAME} ${CMAKE_THREAD_LIBS_INIT} ${Boost_LIBRARIES})
+if(SQLITE3_FOUND)
+target_link_libraries(${TARGET_NAME}${SQLITE3_LIBRARIES})
+endif(SQLITE3_FOUND)

@@ -12,10 +12,9 @@
 
 class Server {
 private:
-	websocketpp::server<websocketpp::config::asio> server;
 	std::set<websocketpp::connection_hdl, std::owner_less<websocketpp::connection_hdl>> conns;
 
-	void (*db_callback) (int type, rapidjson::Value& object);
+	void (*db_callback) (int type, rapidjson::Value& object, websocketpp::connection_hdl hdl);
 
 	DBManager* db;
 
@@ -30,7 +29,9 @@ public:
 	Server(DBManager* db);
 
 	void run();
-	void set_db_callback(void (*db_callback) (int type, rapidjson::Value& object));
+	void set_db_callback(void (*db_callback) (int type, rapidjson::Value& object, websocketpp::connection_hdl hdl));
+	
+	websocketpp::server<websocketpp::config::asio> server;
 };
 
 #endif // SERVER_H

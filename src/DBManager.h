@@ -15,6 +15,8 @@ public:
 	void addMessage(rapidjson::Value& object);
 
 	rapidjson::Document last50(uint64_t latestID);
+
+	rapidjson::Document list_channels();
 };
 
 #endif // DBMANAGER_H
